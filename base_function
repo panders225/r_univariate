@@ -1,0 +1,24 @@
+
+# Function should fulfill the following requirements
+# {attempt to limit to approx 5 parameters}
+# 1. Moments
+# 2. Basic Summary Statistics [mean, median, mode, IQR]
+# 3. outlier info, with ability to remove normal and extreme outliers, if desired
+# 4. distribution evaluation >> kernel pdf, empirical cdf, empirical quantile function, histogram
+# 5. ability to perform basic hypothesis test
+
+auto_eda <- function(x) # x should just be a vector with elements corresponding to one observed variable
+  {
+  
+  require("moments") # for skewness and kurtosis
+  
+  # MOMENT INFO
+  
+  n <- length(x)
+  mu <- mean(x)
+  std_dev <- sd(x)
+  variance <- var(x)
+  skew <- skewness(x)
+  kurt <- kurtosis(x)
+
+  }
