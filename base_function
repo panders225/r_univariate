@@ -21,4 +21,16 @@ auto_eda <- function(x) # x should just be a vector with elements corresponding 
   skew <- skewness(x)
   kurt <- kurtosis(x)
 
+  # BASIC STATISTICAL MEASURES
+  loc_mean <- round(mean(x), 3)
+  loc_median <- round(median(x), 3)
+    ux <- unique(x)
+  loc_mode <- ux[which.max(tabulate(match(z,ux)))]
+  
+  # DESCRIPTION OF QUANTILES
+  
+  # DESCRIPTION OF OUTLIERS
+  
+  # T-TEST, SIGN TEST, WILCOXON SIGNED RANK TEST
+    
   }
