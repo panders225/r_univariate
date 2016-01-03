@@ -20,7 +20,7 @@ require("moments") # for skewness and kurtosis
 install.packages("BSDA"); require("BSDA")
 install.packages("stargazer"); library("stargazer")
 
-auto_eda <- function(x) # x should just be a vector with elements corresponding to one observed variable
+auto_eda <- function(x, graphics) # x should just be a vector with elements corresponding to one observed variable
 {
     
   # MOMENT INFO
@@ -68,7 +68,13 @@ auto_eda <- function(x) # x should just be a vector with elements corresponding 
     max_values <- ordered_vec[(length(ordered_vec)-4):length(ordered_vec)]
     outliers <- data.frame(min_values, max_values)  
     names(outliers) <- c("Lowest Observations", "Highest Observations")
-  }   
+  }  
+  else{
+    min_values <- ordered_vec[1]
+    max_values <- ordered_vec[length(ordered_vec)]
+    outliers <- data.frame(min_values, max_values)  
+    names(outliers) <- c("Lowest Observations", "Highest Observations")    
+  }
   
 
   
@@ -77,8 +83,33 @@ auto_eda <- function(x) # x should just be a vector with elements corresponding 
   stargazer(stat_measures, summary=FALSE, type="text")
   stargazer(quants, summary=FALSE, type="text")
   stargazer(outliers, summary=FALSE, type="text")
+
+  # graphics capabilities - starting with base_R, may move to ggplot2 later on
+  if (isTRUE(graphics) && min(x) > 0)
+    {
+    par(mfrow=c(2,2)) # fit all output onto one graph for now
     
+    # histogram + pdf
+    hist(x, main="Histogram of Input Vector", freq=F)
+    lines(density(x, kernel="epanechnikov"),col="blue")
+    
+    # cdf
+    plot(ecdf(x), main = "Emp. Cum. Dist. Function")
+    
+    #boxplot
+    boxplot(x, main = "Boxplot")
+    
+    # normal reference distribution plot
+    qqnorm(x); qqline(x)
+  }
+
 }
 
-auto_eda(x)
+
+if (isTRUE(graphics) && min(x) > 0)
+{
+  print(x)
+}
+
+auto_eda(x, graphics = T)
 
