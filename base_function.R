@@ -105,11 +105,5 @@ auto_eda <- function(x, graphics) # x should just be a vector with elements corr
 
 }
 
-
-if (isTRUE(graphics) && min(x) > 0)
-{
-  print(x)
-}
-
 auto_eda(x, graphics = T)
 
